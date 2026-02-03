@@ -1,4 +1,4 @@
-namespace ProductInventry.Models
+namespace Store.DAL.Models
 {
     public class ErrorViewModel
     {

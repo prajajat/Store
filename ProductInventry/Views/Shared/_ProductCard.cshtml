@@ -1,0 +1,16 @@
+﻿@model Store.DAL.Models.Product;
+
+<div class="border-0 p-3 " >
+<tr>
+    <td>@Model.Id</td>
+    <td>@Model.Name</td>
+    <td>@Model.Price</td>
+    <td>@Model.Quantity</td>
+    <td>@Model.Category</td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </td>
+</tr>
+</div>   

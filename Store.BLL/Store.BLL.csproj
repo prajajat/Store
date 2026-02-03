@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProductInventry\ProductInventry.csproj" />
-    <ProjectReference Include="..\Store.DLL\Store.DLL.csproj" />
+    <ProjectReference Include="..\Store.DLL\Store.DAL.csproj" />
   </ItemGroup>
+ 
+
 
 </Project>

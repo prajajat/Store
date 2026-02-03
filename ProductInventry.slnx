@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="ProductInventry/ProductInventry.csproj" />
   <Project Path="Store.BLL/Store.BLL.csproj" />
-  <Project Path="Store.DLL/Store.DLL.csproj" />
+  <Project Path="Store.DLL/Store.DAL.csproj" />
 </Solution>

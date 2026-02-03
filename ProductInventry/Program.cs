@@ -1,12 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using ProductInventry.Data;
+using Store.DAL.Models;
+using Store.DAL;
 using Store.BLL;
+using ProductInventry.Middleware;
+using ProductInventry;
+
 
 var builder = WebApplication.CreateBuilder(args);
  
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped< IProductService, ProductService >();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ADORepo>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -15,8 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 var app = builder.Build();
- 
 
+app.UseMiddleware<ReqestLoggerMiddleware>();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

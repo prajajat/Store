@@ -1,8 +1,9 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ProductInventry.Data;
-using ProductInventry.Models;
 using Microsoft.EntityFrameworkCore;
+using Store.BLL;
+using Store.DAL;
+using Store.DAL.Models;
+using System.Diagnostics;
 using System.Linq;
      
 
@@ -11,17 +12,20 @@ namespace ProductInventry.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private AppDbContext _context;
+        private IProductService _service;
+        private readonly ADORepo _repo;
 
-        public HomeController(ILogger<HomeController> logger,AppDbContext appDb)
+        public HomeController(ILogger<HomeController> logger, IProductService service,ADORepo aDORepo)
         {
             _logger = logger;
-            _context=appDb;
+            _service = service;
+            _repo  =aDORepo;
         }
 
         public IActionResult Index()
         {
-          List<Product> AllProduct=_context.Products.ToList();
+          IEnumerable<Product> AllProduct= _service.GetAllProducts();
+            ViewBag.TotalProducts = _repo.GetTotalProducts();
 
             return View(AllProduct);
         }
@@ -35,7 +39,7 @@ namespace ProductInventry.Controllers
         {
             if (!ModelState.IsValid) return View(product);
 
-            _context.Products.Add(product);
+            _service.AddProduct(product);
             return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Edit(int? id)
@@ -45,7 +49,8 @@ namespace ProductInventry.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _service.GetProduct(id.Value);
+
             if (product == null)
             {
                 return NotFound();
@@ -67,8 +72,8 @@ namespace ProductInventry.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                   
+                    _service.UpdateProduct(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -88,7 +93,7 @@ namespace ProductInventry.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _service.GetProduct(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -99,13 +104,12 @@ namespace ProductInventry.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _service.GetProduct(id);
             if (product == null)
             {
                 return NotFound();
             }
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            _service.DeleteProduct(product);
 
             return  RedirectToAction(nameof(Index)); ;
         }
