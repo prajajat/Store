@@ -1,0 +1,46 @@
+﻿@model List<ProductInventry.Models.Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+﻿
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-black">Product list</h2>
+    </div>
+    <div class="col-3 offset-3">
+        <a asp-action="Create" asp-controller="Home" class="btn btn-link form-control text-black">
+            Add New Product
+        </a>
+    </div>
+    <div class="col-12 border p-3">
+        <table  class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            @foreach (var p in Model)
+            {   <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Price</td>
+                <td>@p.Quantity</td>
+                <td>@p.Category</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@p.Id">Edit</a> |
+ 
+                        <a asp-action="Delete" asp-route-id="@p.Id">Delete</a>
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</div> 

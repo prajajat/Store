@@ -1,0 +1,12 @@
+﻿@model ProductInventry.Models.Product
+@{
+    ViewData["Title"] = "ARE YOU SURE?";
+}
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
+}

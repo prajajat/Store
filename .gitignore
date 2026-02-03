@@ -1,0 +1,50 @@
+
+# IDE/Editor Files
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.vsp
+*.vspx
+*.psess
+*.plist
+
+# Build Results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+*.exe
+*.dll
+*.pdb
+*.tmp
+*.temp
+*.log
+*.rpt
+*.cache
+*.ncb
+*.sbr
+*.res
+*.stackdump
+
+# Packages (NuGet)
+[Pp]ackages/
+# except for the packages.config
+!**/packages.config*
+
+# Rider IDE
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Other
+*.sdf
+*.opensdf
+*.dbmdl
+
+# Azure
+*.publishsettings
+*.sublime-project
+*.sublime-workspace
+[Tt]humbs.db
